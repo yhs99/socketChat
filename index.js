@@ -46,5 +46,9 @@ io.on('connection', (socket) =>{
         console.log(name + " : " + msg);
         var message = name + ' : ' + msg;
         io.to(room[a]).emit('chat message', name, message);
-      });
+    });
+
+    socket.on("addRoom", (name) => {
+        room.push(name);
+    });
 });
