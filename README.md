@@ -16,6 +16,5 @@ socket.io ver : 2.2.0
 > 5. git\socketChatting> node index.js
 
 
- 
-===========================
-RommLists.txt : 방 목록을 동기화 시켜주기 위한 텍스트 파일.
+ <br><br>
+>RommLists.txt : 방 목록을 동기화 시켜주기 위한 텍스트 파일.
