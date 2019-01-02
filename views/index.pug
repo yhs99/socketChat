@@ -8,60 +8,21 @@ block content
     }
   div.container
     div.row
-      div.col.col-xl-12
-        select.custom-select(multiple)
-          - for(var i=1; i<= 2; i++)
-            option(value="Room#{i}") Room#{i}
-      div.col.col-xl-12
+      div.col.col-xl-12.col-lg-12.col-md-12.col-sm-12.col-xs-12(style="width:100%;")
+        select#roomselector.custom-select(multiple)
+      div.col.col-xl-12.col-lg-12.col-md-12.col-sm-12.col-xs-12(style="width:100%;")
         textarea#messages.form-control(style="width:100%; height:300px;", readonly, )
-      div.col.col-xl-12
+      div.col.col-xl-12.col-lg-12.col-md-12.col-sm-12.col-xs-12(style="width:100%;")
        form(action="")
           input#m.form-control(type="text", style="width:90%; float:left;")
           input.btn.btn-primary(type="submit", style="width:10%; float:right;", value="전송")
+      br
+      br
+      div.col.col-xl-12.col-lg-12.col-md-12.col-sm-12.col-xs-12(style="width:100%;")
+        button#roomInfo.btn.btn-primary.roomInfo(style="margin:5px;") 채팅방 생성
+        button#reset.btn.btn-primary(style="display: none; float:right; margin:5px;") 취소
+        button#roomconfirm.btn.btn-primary.roomconfirm(style="display: none; float:right; margin:5px;") 생성
+        input#roomName.form-control.roomName(type="text", style="display: none; float:right; margin:5px; width:30%;")
   script(src='js/jquery-3.3.1.min.js')
   script(src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js")
-  script.
-    $(() => {
-      var name = '';
-      while(name == '' || name == 'null'){
-          name = prompt('이름을 정하세요');
-      }
-      const socket = io();
-      let room = ['room1', 'room2'];
-      let num = 0;
-
-      socket.emit('joinRoom', num, name);
-
-      $('select').change(() => {
-        socket.emit('leaveRoom', num, name);
-        num++;
-        num = num % 2;
-        socket.emit('joinRoom', num, name);
-      });
-
-
-      $('form').submit(() => {
-        if($('#m').val() != ''){
-          socket.emit('chat message', num, name, $('#m').val());
-          $('#m').val('');
-          $('#m').focus();
-          return false;
-        }else {
-          return false;
-        }
-      });
-
-      socket.on('chat message', (name, msg) => {
-        $('#messages').append(msg + '\n');
-        $('#messages').scrollTop($('#messages')[0].scrollHeight);
-
-      });
-
-      socket.on('leaveRoom', (num, name) => {
-        $('#messages').append(name + '가 ' + room[num] + '에서 퇴장' + '\n');
-      });
-
-      socket.on('joinRoom', (num, name) => {
-        $('#messages').append(name + '가 ' + room[num] + '에 입장' + '\n');
-      });
-    });
+  script(src="js/chat.js")
