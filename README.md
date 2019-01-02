@@ -8,12 +8,12 @@ socket.io ver : 2.2.0
  
 > VSCode
 
-> 1. git clone repository
+  1. git clone repository
 
-> 2. cd git/cocketChat
+  2. cd git/cocketChat
 
-> 3. npm install
+  3. npm install
 
-> 4. git\socketChatting> npm install
+  4. git\socketChatting> npm install
 
-> 5. git\socketChatting> node index.js
+  5. git\socketChatting> node index.js
