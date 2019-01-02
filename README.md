@@ -6,8 +6,8 @@ socket.io ver : 2.2.0
 
 > 개발환경 세팅
  
-> VSCode
-
+VSCode
+=========================
   1. git clone repository
 
   2. cd git/cocketChat
