@@ -10,8 +10,6 @@ block content
     div.row
       div.col.col-xl-12.col-lg-12.col-md-12.col-sm-12.col-xs-12(style="width:100%;")
         select#roomselector.custom-select(multiple)
-          option(value="0") Room1
-          option(value="1") Room2
       div.col.col-xl-12.col-lg-12.col-md-12.col-sm-12.col-xs-12(style="width:100%;")
         textarea#messages.form-control(style="width:100%; height:300px;", readonly, )
       div.col.col-xl-12.col-lg-12.col-md-12.col-sm-12.col-xs-12(style="width:100%;")
@@ -27,75 +25,4 @@ block content
         input#roomName.form-control.roomName(type="text", style="display: none; float:right; margin:5px; width:30%;")
   script(src='js/jquery-3.3.1.min.js')
   script(src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js")
-  script.
-    $(() => {
-      var name = '';
-      while(name == '' || name == 'null'){
-          name = prompt('이름을 정하세요');
-      }
-      const socket = io();
-      let room = ['room1', 'room2']; //default rooms
-      let num = 0;
-
-      socket.emit('joinRoom', num, name);
-
-      $('#roomInfo').click(function() {
-        $("#roomName").css("display", "inline");
-        $("#roomconfirm").css("display", "inline");
-        $("#reset").css("display", "inline");
-      });
-
-      $("#reset").click(function() {
-        $("#roomName").css("display", "none");
-        $("#roomconfirm").css("display", "none");
-        $("#reset").css("display", "none");
-      });
-
-      $("#roomconfirm").click(function() {
-          if($("#roomName").val != ''){
-              var roomNm = $("#roomName").val();
-              room.push(roomNm);
-              socket.emit('addRoom', roomNm);
-              var roomNum = room.length-1;
-              alert(roomNum);
-              $("#roomselector").append("<option value="+roomNum+">"+roomNm+"</option>");
-              $("#roomName").css("display", "none");
-              $("#roomconfirm").css("display", "none");
-              $("#reset").css("display", "none");
-          }
-      });
-
-      $('select').change(() => {
-        var roomNum = $("#roomselector").val();
-        socket.emit('leaveRoom', num, name);
-        num++;
-        num = num % 2;
-        socket.emit('joinRoom', num, name);
-      });
-
-
-      $('form').submit(() => {
-        if($('#m').val() != ''){
-          socket.emit('chat message', num, name, $('#m').val());
-          $('#m').val('');
-          $('#m').focus();
-          return false;
-        }else {
-          return false;
-        }
-      });
-
-      socket.on('chat message', (name, msg) => {
-        $('#messages').append(msg + '\n');
-        $('#messages').scrollTop($('#messages')[0].scrollHeight);
-
-      });
-
-      socket.on('leaveRoom', (num, name) => {
-        $('#messages').append(name + '가 ' + room[num] + '에서 퇴장' + '\n');
-      });
-
-      socket.on('joinRoom', (num, name) => {
-        $('#messages').append(name + '가 ' + room[num] + '에 입장' + '\n');
-      });
-    });
+  script(src="js/chat.js")
